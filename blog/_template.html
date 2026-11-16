@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ============================================================================
+  NEW BLOG POST — copy this file to make a post.  (This _template.html file is
+  NOT a published post; it never shows in the blog index.)
+
+  HOW TO ADD A POST (4 steps):
+
+  1) COPY this file to  blog/your-post-title.html
+        - use lowercase-words-with-dashes for the filename (that becomes the URL:
+          rivendellainc.com/blog/your-post-title.html)
+
+  2) FILL IN the 5 spots marked  <<< ... >>>  below:
+        - the <title> and <meta description>
+        - the date, the (optional) category badge
+        - the <h1> headline
+        - the cover image (put the image file in blog/images/ first)
+        - the article body (write in plain HTML — examples are shown below)
+
+  3) ADD A CARD to the blog index so people can find it:
+        - open blog/index.html
+        - find the line:  <!-- ADD NEW POST CARDS HERE (newest first) -->
+        - paste the CARD SNIPPET (at the very bottom of this file) right under it
+        - fill in its href / image / date / title / excerpt
+
+  4) PUBLISH:
+        cd G:\Projects\rivendellai-site
+        git add -A
+        git commit -m "new post: your title"
+        git push
+        ...live at rivendellainc.com in ~1 minute.
+
+  Images: drop the file in  blog/images/  and reference it as
+          /blog/images/your-file.jpg   (jpg/png/webp all fine)
+  ============================================================================
+-->
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title><<< POST TITLE >>> — RivendellAI</title>
+<meta name="description" content="<<< One-sentence summary of the post for Google/social previews. >>>"/>
+<link rel="stylesheet" href="../blog.css"/>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="/"><span class="mark">R</span> RivendellAI</a>
+  <span class="spacer"></span>
+  <a class="link" href="/#services">What we do</a>
+  <a class="link" href="/#work">Our work</a>
+  <a class="link" href="/blog/">Blog</a>
+  <a class="btn btn-ghost" href="/#contact">Get in touch</a>
+</div></header>
+
+<article class="post"><div class="wrap post-wrap">
+  <a class="back" href="/blog/">← All posts</a>
+
+  <!-- date + optional category. Delete the <span class="cat"> if you don't want a category. -->
+  <div class="post-meta">
+    <time><<< Month D, YYYY >>></time>
+    <span class="cat"><<< Category (optional) >>></span>
+  </div>
+
+  <h1><<< POST HEADLINE >>></h1>
+
+  <!-- COVER IMAGE (optional). Put the file in blog/images/ first. Delete this line if no cover. -->
+  <img class="post-cover" src="/blog/images/<<< your-cover.jpg >>>" alt=""/>
+
+  <!-- ===================== ARTICLE BODY — write below ======================
+       Use these building blocks (copy the patterns you need):
+
+         <p>A normal paragraph of text.</p>
+         <h2>A section heading</h2>
+         <h3>A smaller sub-heading</h3>
+         <p>Make words <strong>bold</strong> or <em>italic</em>, or add a
+            <a href="https://example.com">link</a>.</p>
+         <ul>
+           <li>A bullet point</li>
+           <li>Another bullet point</li>
+         </ul>
+         <ol>
+           <li>A numbered step</li>
+         </ol>
+         <blockquote>A pulled-out quote or callout.</blockquote>
+         <img src="/blog/images/inline-picture.jpg" alt="describe the image"/>
+         <pre><code>// a code block, if you ever need one</code></pre>
+  ====================================================================== -->
+  <div class="prose">
+
+    <p><<< Write your opening paragraph here. >>></p>
+
+    <h2><<< First section heading >>></h2>
+    <p><<< ...body text... >>></p>
+
+    <!-- add as many <h2>/<p>/<ul> blocks as you like -->
+
+  </div>
+  <!-- ======================= END ARTICLE BODY ========================= -->
+
+  <hr class="rule"/>
+  <div class="post-cta">
+    <a class="btn btn-ghost" href="/blog/">← Back to the blog</a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+  </div>
+</div></article>
+
+<footer><div class="wrap foot">
+  <div class="brand"><span class="mark">R</span> RivendellAI&nbsp;Inc</div>
+  <div>© <span id="yr">2026</span> RivendellAI Inc · <a href="/">rivendellainc.com</a></div>
+</div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
+
+<!--
+  ========================= CARD SNIPPET =========================
+  Paste this into blog/index.html, just under the line:
+        <!-- ADD NEW POST CARDS HERE (newest first) -->
+  Then fill in the href, image, date, title and excerpt.
+  (If the post has no cover image, replace the <div class="card-img"...>
+   line with:  <div class="card-img noimg"></div> )
+
+  <a class="post-card" href="/blog/your-post-title.html">
+  <div class="card-img" style="background-image:url('/blog/images/your-cover.jpg')"></div>
+  <div class="card-body"><div class="post-meta"><time>Month D, YYYY</time><span class="cat">Category</span></div>
+  <h3>Your Post Title</h3><p>A one or two sentence teaser that makes people want to click…</p>
+  <span class="read">Read the post →</span></div>
+  </a>
+
+  ================================================================
+-->

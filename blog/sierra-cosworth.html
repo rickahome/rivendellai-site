@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sierra Cosworth: — RivendellAI</title>
-<meta name="description" content="Inside the Sierra Cosworth Engine Project: Building a Legend from the Ground Up By Rick Adams"/>
+<title>Before the Code: Building the Factory Behind the Sierra Cosworth — RivendellAI</title>
+<meta name="description" content="The untold story behind a legend — building the factory and the systems that produced the Ford Sierra Cosworth&#x27;s YB engine, and the path from aluminium to software."/>
 <link rel="stylesheet" href="../blog.css"/>
 </head>
 <body>
@@ -18,77 +18,54 @@
 </div></header>
 <article class="post"><div class="wrap post-wrap">
   <a class="back" href="/blog/">← All posts</a>
-  <div class="post-meta"><time>June 24, 2025</time></div>
-  <h1>Sierra Cosworth:</h1>
-  <img class="post-cover" src="/blog/images/1987-ford-sierra-cosworth-rs500-main.jpg" alt=""/>
-  <div class="prose"><p>Inside the Sierra Cosworth Engine Project: Building a Legend from the Ground Up
- By Rick Adams</p>
-<p>During the early 1980s, Ford was looking to create a high-performance variant of its Sierra to qualify for Group A touring car racing. That&rsquo;s when Cosworth got the call — and that&rsquo;s where I came in.</p>
-<p>At the time, I was one of the two original engineers assigned to what would become the Sierra Cosworth engine project. Looking back now, with YouTube videos, articles, and TV retrospectives celebrating the car&rsquo;s legacy, I realized there&rsquo;s one thing missing: the story of how we actually made it happen — not just the engine itself, but the entire facility we had to build from scratch to produce it.</p>
-<p>This blog is a bit of a departure from what I typically do today at Rivendell AI — a software development company. But before software, I had a different kind of engineering life. This is a behind-the-scenes look at what it took — technically, logistically, and personally — to bring the Sierra Cosworth&rsquo;s iconic YB engine to life. It&rsquo;s a story from my past, but one that shaped how I approach complex engineering problems even today.</p>
-<h3>⚙️ Part 1: The Challenge</h3>
-<p>When the project first started, Ford&rsquo;s ask was bold: they needed a high-performance engine that could homologate for Group A competition — but also function as a production-ready road engine. In other words: all the power of a motorsport engine, but with the reliability and manufacturability of a mass-produced unit.</p>
-<p>Cosworth was known for building race engines. At the time, we&rsquo;d never produced anything on the scale Ford required for a homologation run. This wasn&rsquo;t just about designing a great engine — we needed to design the means to build it, at scale, without compromising on quality.</p>
-<h3>🏭 Part 2: Building the Facility</h3>
-<p>Once we got approval for the project, we secured a new building in Wellingborough, Northamptonshire, to serve as the dedicated production facility for the Sierra Cosworth engine. Outfitting it was no small task — we had to select and acquire all the necessary machining equipment to meet both performance and volume expectations, and to ensure we had ample room for the Cosworth Helicopter to ferry visitors to the factory.</p>
-<p>At that point, the responsibilities naturally split between the two of us. Pete Bartram, the other engineer on the project, focused on the production engineering side — everything from machining processes to fixture design and tooling strategy. I took on the systems side of running the operation.</p>
-<p>This meant specifying, procuring, and integrating a wide array of systems needed to support a modern engine production line. We leveraged existing infrastructure from Cosworth HQ where we could — and developed new systems where necessary.</p>
-<p>While Pete Bartram focused on production engineering, I concentrated on designing, specifying, and integrating the systems that would power day-to-day operations. This included:</p>
+  <div class="post-meta"><time>June 24, 2025</time><span class="cat">Engineering</span></div>
+  <h1>Before the Code: Building the Factory Behind the Sierra Cosworth</h1>
+  <img class="post-cover" src="/blog/images/1987-ford-sierra-cosworth-rs500-main.jpg" alt="Ford Sierra RS500 Cosworth"/>
+  <div class="prose"><p><em>By Rick Adams</em></p>
+<p>Go to any classic car show and you&rsquo;ll find a crowd around it — the whale-tail spoiler, the flared arches, that unmistakable silhouette. The Ford Sierra RS Cosworth is a legend now, celebrated in YouTube retrospectives, magazine features, and TV documentaries. They all tell the story of the car, and the YB engine that made it immortal.</p>
+<p>There&rsquo;s one part almost nobody tells: how it was actually <em>made</em>. Not the engineering drawings — the factory. The production line. The systems that turned a motorsport engine into something you could build five thousand of, every year, without ever compromising what made it special.</p>
+<p>I know that part, because I was there to build it.</p>
+<p>In the early 1980s, Ford set out to create a high-performance Sierra to homologate for Group A touring car racing. They called Cosworth. And when the project started, I was one of the two original engineers assigned to it.</p>
+<p>This is a departure from what I write about now — today I run Rivendell AI, a software company. But before software, I had a different engineering life. And the way I learned to think back then still shapes everything I do today.</p>
+<h2>The challenge: a race engine you could mass-produce</h2>
+<p>Ford&rsquo;s ask was deceptively simple and genuinely hard: a homologation engine that could win in Group A, but also live under the bonnet of a road car — all the power of a motorsport unit, with the reliability and manufacturability of a mass-produced one.</p>
+<p>Cosworth built race engines. Brilliant ones. But we had never produced anything at the scale and volume Ford needed. This wasn&rsquo;t just about designing a great engine. We had to design the <em>means to build it</em> — at volume, without giving an inch on quality.</p>
+<h2>Building the facility from a blank sheet</h2>
+<p>Once the project was approved, we secured a new building in Wellingborough, Northamptonshire, as the dedicated production facility for the Sierra Cosworth engine. Outfitting it was no small task: selecting and acquiring every piece of machining equipment to hit both our performance and volume targets — and leaving enough room, of course, for the Cosworth helicopter to ferry visitors in.</p>
+<p>The work split naturally between the two of us. Pete Bartram took the production-engineering side — machining processes, fixture design, tooling strategy. I took the systems side: specifying, procuring, and integrating everything needed to actually <em>run</em> a modern engine line. We leaned on Cosworth HQ&rsquo;s infrastructure where we could, and built new where we had to.</p>
+<p>That meant architecting the operational backbone of the whole plant:</p>
 <ul>
-<li>
-<p>M.R.P. (Material Requirements Planning) — for just-in-time visibility into the parts pipeline and supplier flow</p>
-</li>
-<li>
-<p>Hot Test Systems — to validate engine performance immediately after assembly, every unit, every time</p>
-</li>
-<li>
-<p>SPC (Statistical Process Control) — applying data-driven quality methods to monitor machining precision and ensure consistency</p>
-</li>
-<li>
-<p>Quality Control Systems — including inspection routines, defect tracking, and root cause analysis</p>
-</li>
-<li>
-<p>Payroll Systems — because even great engineers and operators need to get paid on time</p>
-</li>
-<li>
-<p>Internal Communications &amp; IT — from wiring the network infrastructure to linking shop-floor systems with management-level reporting</p>
-</li>
+<li><strong>MRP (Material Requirements Planning)</strong> — just-in-time visibility into the parts pipeline and supplier flow</li>
+<li><strong>Hot test systems</strong> — validating engine performance immediately after assembly: every unit, every time</li>
+<li><strong>SPC (Statistical Process Control)</strong> — data-driven quality, monitoring machining precision for consistency</li>
+<li><strong>Quality control</strong> — inspection routines, defect tracking, root-cause analysis</li>
+<li><strong>Payroll</strong> — because even great engineers need to get paid on time</li>
+<li><strong>Internal comms &amp; IT</strong> — from wiring the network to linking the shop floor to management reporting</li>
 </ul>
-<p>This wasn&rsquo;t just about installing software. It was about architecting an integrated operational backbone — a system that could support both the complexity of Cosworth&rsquo;s standards and the volume of production Ford required.</p>
-<p>It wasn&rsquo;t just a mechanical project; it was an operational startup inside an engineering company. We were building the physical line — and simultaneously the digital nervous system to run it.</p>
-<p>It was during this phase — building the operational systems for the Wellingborough facility — that something unexpected happened: I discovered my real passion wasn&rsquo;t just in machining or production engineering, but in the systems that made everything work.</p>
-<p>Working with MRP, hot test diagnostics, data flows, and early business logic, I found myself more drawn to the software and information side of the operation than the mechanical side. That was the turning point where I began to transition from a traditional production engineer into IT and software development.</p>
-<p>What began as a necessity — wiring together systems to support engine production — became a fascination with how digital tools could solve complex operational challenges. That shift ultimately set me on the path to what I do today at Rivendell AI, building software systems that help businesses operate smarter and more efficiently.</p>
-<h3>🔧 Part 3: Decision-Making and a Crash Course in Leadership</h3>
-<p>One moment I&rsquo;ll never forget was being called into the Managing Director Alf Vickers&rsquo; office. He sat me down and laid out something that would stick with me for the rest of my career:</p>
+<p>It wasn&rsquo;t just installing software. We were building the physical line and, at the same time, the digital nervous system to run it. An operational startup inside an engineering company.</p>
+<p>And somewhere in that phase, something unexpected happened to me. Surrounded by MRP, hot-test diagnostics, data flows, and early business logic, I realised I was more drawn to the <em>systems</em> that made everything work than to the machining itself. What started as a necessity — wiring together the tools to support engine production — became a fascination with how digital systems solve hard operational problems. That was the turning point that eventually carried me from production engineer to IT and, ultimately, software. The road to Rivendell AI started on that shop floor.</p>
+<h2>A crash course in leadership</h2>
+<p>One moment stuck with me for the rest of my career. I was called into the office of our Managing Director, Alf Vickers. He sat me down and said something I&rsquo;ve never forgotten:</p>
 <blockquote>
-<p>&ldquo;When we&rsquo;re deciding on equipment, buildings, manufacturing processes, or systems,&rdquo; he said, &ldquo;I want you to give me a truthful, deep analysis of the options — the pros and cons. But once a decision is made, even if it&rsquo;s not the one you&rsquo;d pick, you back it 100% — because I may be working with factors you don&rsquo;t know about.&rdquo;</p>
-<p>It was my first real exposure to executive-level engineering decision-making. That mindset — of rigorous analysis followed by total commitment — shaped not just how I worked on the Sierra Cosworth project, but how I&rsquo;ve approached leadership and systems architecture ever since.</p>
+<p>&ldquo;When we&rsquo;re deciding on equipment, buildings, processes, or systems, I want you to give me a truthful, deep analysis of the options — the pros and the cons. But once a decision is made, even if it&rsquo;s not the one you&rsquo;d have picked, you back it 100%. Because I may be working with factors you don&rsquo;t know about.&rdquo;</p>
 </blockquote>
-<p>The truth is, not every decision was neat or easy. I remember many late nights at Cosworth, sitting with Mike Costin, Keith Duckworth, Benny Rood, Alf, Pete Bartram, and myself — having exceedingly vocal arguments about different stages of the project. These weren&rsquo;t casual chats; these were passionate debates from people who cared deeply about getting it right.</p>
-<p>Another memorable chapter came when we were evaluating which machine tool supplier to go with. I traveled to meet reps from KTM and Heller — not in factories, but in hotel rooms, each one trying to convince us their technology was the best fit for our production goals. For a young engineer stepping into high-stakes purchasing decisions, it was both intense and incredibly intriguing.</p>
-<h3>🏁 Part 4: Scaling Up — 5,000 Engines and a Side of Twin-cam</h3>
-<p>Once the Wellingborough facility was operational, our production goal was clear: build 5,000 Sierra Cosworth engines per year.</p>
-<p>This wasn&rsquo;t just a matter of bolting parts together. We were machining Cosworth-designed aluminum cylinder heads, assembling complete engines, and hot testing each and every one before it left the building. That kind of precision production — at volume — was a first for Cosworth, and it meant we had to rethink how we approached manufacturing.</p>
-<p>And just to keep things interesting, we were also contracted to machine 2,500 twin-cam 4 valve cylinder heads for the Mercedes-Benz 190, another Group A touring car competitor. Balancing both programs in parallel — each with its own requirements, materials, and tolerances — put serious demands on our planning, tooling, and resource allocation.</p>
-<p>That&rsquo;s exactly why we adopted FMS — Flexible Manufacturing Systems.</p>
-<p>Rather than build a rigid, single-purpose line, we implemented a setup that allowed us to adapt quickly to different head designs and batch sizes. This meant smarter fixture design, automated tool changes, programmable CNC processes, and intelligent scheduling — all managed through the systems we developed and integrated from the ground up.</p>
-<p>FMS let us respond to changing priorities without sacrificing precision. One shift might be focused on Sierra production, while the next could be machining Mercedes heads — and we could switch over with minimal downtime.</p>
-<p>At the time, this approach was cutting-edge. For Cosworth, traditionally a race engine builder, it marked a major step into advanced manufacturing — and it worked.</p>
-<h3>👥 Part 5: Growing the Team and Going Live</h3>
-<p>As the project gained momentum, so did the team.</p>
-<p>What began with just Pete Bartram and myself soon expanded into a full production and engineering operation. Over time, we brought in a number of skilled individuals to help turn the vision into reality. One particularly notable addition was Bernard Ferguson, who would later become Cosworth&rsquo;s Director of Motorsport — overseeing some of the most prestigious programs in Formula 1 and beyond. Having someone of Bernard&rsquo;s caliber involved in the Sierra Cosworth project underscored just how strategically important this engine was to the company&rsquo;s future.</p>
-<p>It took us two full years of planning, building, specifying, and debugging — across facilities, systems, and people — but eventually, everything was in place.</p>
-<p>After two years of preparation, we officially entered production. The facility was fully operational — heads were being machined, engines assembled, tested, and shipped. The systems we had spent so long planning and implementing were now working day in and day out. It marked the successful transition from concept and setup to a functioning, high-performance manufacturing operation.</p>
-<h3>🚗 A Moment to Remember</h3>
-<p>One of the more unforgettable moments came when Pete and I got the chance to drive the Sierra Cosworth test car ourselves.</p>
-<p>It was a raw, unfiltered machine — and we couldn&rsquo;t resist seeing what it could really do. We found a long enough stretch of road, put our foot down&hellip; and the car delivered. We actually spun the wheels in fourth gear, and got it up to 140 mph before deciding we&rsquo;d probably made our point — and should slow down.</p>
-<p>For two engineers who had spent years in the trenches designing, building, and debugging this engine, that moment was pure satisfaction. We could feel everything we&rsquo;d worked for — the performance, the responsiveness, the precision — come together in a very real way.</p>
-<h3>🧭 Looking Back</h3>
-<p>That project — from a blank sheet of paper to a fully operational engine production line — was one of the most formative experiences of my career.</p>
-<p>It challenged me in ways I couldn&rsquo;t have predicted. It pushed me out of traditional production engineering and into systems, IT, and ultimately, software development. Looking back, I realize that everything I learned about building integrated systems, managing complexity, and delivering under pressure still guides how I work today.</p>
-<p>At Rivendell AI, the problems are different — we&rsquo;re working in software, data, and automation — but the principles are the same. Understand the system. Design it properly. Be honest in analysis. And when the decision is made, back it 100%.</p>
-<p>The Sierra Cosworth wasn&rsquo;t just a great car — it was a great lesson in engineering, teamwork, and what it takes to turn an ambitious idea into something real.</p></div>
+<p>It was my first real taste of executive-level engineering decisions — rigorous analysis, followed by total commitment. Not every call was neat. I remember late nights at Cosworth with Mike Costin, Keith Duckworth, Benny Rood, Alf, Pete and me, having loud, passionate arguments over different stages of the project. These weren&rsquo;t casual chats. They were fierce debates between people who cared, deeply, about getting it right.</p>
+<p>Another chapter I won&rsquo;t forget: choosing a machine-tool supplier. I met reps from KTM and Heller — not in factories, but in hotel rooms, each one making their case for why their technology was the right bet for our line. For a young engineer stepping into high-stakes purchasing, it was intense and completely absorbing.</p>
+<h2>Scaling up: 5,000 engines, and a side of Mercedes</h2>
+<p>Once Wellingborough was running, the target was clear: <strong>5,000 Sierra Cosworth engines a year.</strong> Machining Cosworth-designed aluminium cylinder heads, assembling complete engines, and hot-testing every single one before it left the building. Precision production at that volume was a first for Cosworth, and it forced us to rethink how we manufactured.</p>
+<p>And to keep things interesting, we were also contracted to machine <strong>2,500 twin-cam, four-valve cylinder heads for the Mercedes-Benz 190</strong> — another Group A contender. Running both programmes in parallel, each with its own materials and tolerances, put real pressure on planning, tooling, and resources.</p>
+<p>That&rsquo;s exactly why we adopted <strong>FMS — Flexible Manufacturing Systems.</strong> Instead of a rigid, single-purpose line, we built a setup that could adapt fast to different head designs and batch sizes: smarter fixtures, automated tool changes, programmable CNC, intelligent scheduling — all run through the systems we&rsquo;d integrated from the ground up. One shift could be Sierra production; the next, Mercedes heads — with minimal downtime between. For a traditional race-engine builder, that was a serious leap into advanced manufacturing. And it worked.</p>
+<h2>Growing the team, and going live</h2>
+<p>What began with just Pete and me grew into a full production and engineering operation. Among the people we brought in was Bernard Ferguson, who would later become Cosworth&rsquo;s Director of Motorsport, overseeing some of the most prestigious programmes in Formula 1 and beyond. Having someone of his calibre on the Sierra project said everything about how strategically important this engine was to the company&rsquo;s future.</p>
+<p>It took two full years — planning, building, specifying, debugging, across facilities, systems, and people. And then, one day, everything was in place. We entered production. Heads being machined, engines assembled, tested, shipped. The systems we&rsquo;d spent so long designing were running, day in and day out. Concept and setup had become a living, high-performance manufacturing operation.</p>
+<h2>A moment to remember</h2>
+<p>One of the best came when Pete and I got to drive the Sierra Cosworth test car ourselves. It was a raw, unfiltered machine, and we couldn&rsquo;t resist finding out what it could really do. We found a long enough stretch of road, put a foot down — and it delivered. We spun the wheels in <em>fourth gear</em>, hit 140 mph, and decided we&rsquo;d probably made our point.</p>
+<p>For two engineers who&rsquo;d spent years designing, building, and debugging that engine, it was pure satisfaction. Everything we&rsquo;d worked for — the power, the response, the precision — all of it, real, under us, at speed.</p>
+<h2>Looking back</h2>
+<p>From a blank sheet of paper to a fully operational engine line, that project was one of the most formative experiences of my career. It pushed me out of traditional production engineering and into systems, IT, and eventually software. Everything I learned about building integrated systems, managing complexity, and delivering under pressure still guides how I work.</p>
+<p>At Rivendell AI the problems are different — software, data, automation instead of aluminium and CNC — but the principles haven&rsquo;t changed:</p>
+<p><strong>Understand the system. Design it properly. Be honest in your analysis. And once the decision is made, back it 100%.</strong></p>
+<p>The Sierra Cosworth wasn&rsquo;t just a great car. It was a great lesson in engineering, in teamwork, and in what it takes to turn an ambitious idea into something real. I&rsquo;ve been doing that ever since — I just build it in code now.</p></div>
   <hr class="rule"/>
   <div class="post-cta">
     <a class="btn btn-ghost" href="/blog/">← Back to the blog</a>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Modernize an Angular 8 App. — RivendellAI</title>
+<meta name="description" content="Rivendellai Inc. — June 2026"/>
+<link rel="stylesheet" href="../blog.css"/>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="/"><span class="mark">R</span> RivendellAI</a>
+  <span class="spacer"></span>
+  <a class="link" href="/#services">What we do</a>
+  <a class="link" href="/#work">Our work</a>
+  <a class="link" href="/blog/">Blog</a>
+  <a class="btn btn-ghost" href="/#contact">Get in touch</a>
+</div></header>
+<article class="post"><div class="wrap post-wrap">
+  <a class="back" href="/blog/">← All posts</a>
+  <div class="post-meta"><time>June 7, 2026</time><span class="cat">Software development</span></div>
+  <h1>Modernize an Angular 8 App.</h1>
+  <img class="post-cover" src="https://img1.wsimg.com/isteam/ip/5f56b124-e0fa-4c84-a9de-ae6e59fe402b/Screenshot%202026-06-07%20144949.png" alt=""/>
+  <div class="prose"><h2>We Were Quoted 3 Months to Modernize an Angular 8 App. We Shipped the Core in a Weekend.</h2>
+<p><em>Rivendellai Inc. — June 2026</em></p>
+<p>Every software company has one: the application that runs the business but that everyone is afraid to touch. Ours was the ProSale Company Portal — the operational heart of our estate-sale platform. Sales setup, inventory cataloging, client management, point of sale, payments, reporting. All of it running on <strong>Angular 8</strong>, <strong>Node 12</strong>, and <strong>TypeScript 3.5</strong> — a stack that was already legacy when the 2020s started.</p>
+<p>The honest assessment, from people who know what they&rsquo;re talking about: <strong>about three months of effort</strong> to bring it to a modern stack. Thirteen major Angular versions behind. Roughly <strong>80 runtime dependencies</strong>, many of them abandoned years ago — the smart-table library, the OIDC client, the file uploader, the perfect-scrollbar, the video player nobody remembered adding. You can&rsquo;t upgrade <em>through</em> thirteen majors when half your dependency tree has no compatible version on the other side. The only honest path was a rewrite.</p>
+<p>So we rewrote it. <strong>The core of the system — 18 commits, nearly 20,000 lines of production code, 50 components, 19 services — landed in one weekend.</strong></p>
+<h2>What actually shipped</h2>
+<p>This wasn&rsquo;t a skeleton or a proof of concept. Over two days, the new portal went from an authentication shell to feature-complete for the core business:</p>
+<ul>
+<li><strong>Company management</strong> — profile, addresses, contacts, payment options, commission rules, discount groups, quick-add catalogs, and the full <strong>Square merchant onboarding</strong>: OAuth connect, location selection, card terminal pairing with device codes, POS stand registration</li>
+<li><strong>The complete sales lifecycle</strong> — eleven filtered sales views, a guided create-sale wizard (client → details → schedule → confirmation), and an eleven-tab sale workspace covering scheduling with per-day discount periods, expenses, commissions, documents, communications, and merge/grouping</li>
+<li><strong>Inventory</strong> — cataloging with multi-photo upload, per-day discount pricing, stock validation, and SKU generation</li>
+<li><strong>A full point of sale</strong> — ticket management, a register with barcode scanning, quick-add grids and out-the-door pricing, and a checkout that takes <strong>real payments through Square</strong>: card terminals, the in-browser Square Web SDK, the Square POS tablet app, cash with change calculation, checks, and partial payments — with PDF and email receipts</li>
+<li><strong>Customers and clients</strong> — searchable directories with full profiles</li>
+<li><strong>Reporting</strong> — rebuilt on our new document-generation pipeline, where reports assemble live data from microservices instead of a warehouse</li>
+<li><strong>Production packaging</strong> — a Docker/ECR/Kubernetes pipeline matching our existing deployment flow, image built and verified</li>
+</ul>
+<p>And the result is <em>dramatically</em> lighter. The legacy portal is <strong>77,861 lines of application code across 776 files</strong> (121 components, 46 services). The new one does the core job in <strong>15,037 lines across 156 files</strong> (50 components, 19 services) — roughly <strong>80% less code</strong>. That&rsquo;s what happens when you delete the smart-table data-source classes, the subscription-manager boilerplate, the wrapper components that existed only to feed abandoned UI libraries, and the dead code that could never execute. The dependency list went from ~80 packages to <strong>11</strong>. The initial bundle a browser downloads is now about <strong>190 KB</strong>. Every commit built clean.</p>
+<h2>How a weekend replaced a quarter</h2>
+<p>Three things made this possible, and only one of them is the obvious one.</p>
+<p><strong>1. AI pair programming — used the way it should be.</strong> We ran the migration as a continuous working session with Claude (Anthropic&rsquo;s Claude Code), and the workflow mattered more than the tool: the AI read the legacy component, the service it called, and the actual API contract <em>before</em> writing a line. Every screen was ported against the real request shapes the backend expects — the same filter parameters, the same DTO field casing, the same round-trip mappings. When the new sales list showed every sale instead of one type, the fix came from re-reading the legacy data source and discovering the backend wanted <code>filterType=Residence</code>, not a special-type flag. That&rsquo;s contract archaeology, done at machine speed.</p>
+<p><strong>2. A proven reference implementation.</strong> We had already modernized our admin portal. Its patterns — standalone components, signal-based state, a tolerant DTO-mapping layer, plain Bootstrap tables instead of grid libraries — became the template. The new portal didn&rsquo;t invent an architecture on the fly; it <em>applied</em> one that was already battle-tested in production. If you&rsquo;re planning a legacy rewrite, this is the multiplier nobody prices in: modernize one system carefully, then let it set the rules for the rest.</p>
+<p><strong>3. Ruthless scoping — and the dead code told us where to cut.</strong> Reading every legacy file before porting it paid for itself in what we <em>didn&rsquo;t</em> migrate. A category-editing UI that had been hard-locked behind a <code>categoriesLocked = true</code> flag — hundreds of lines that could never execute. Client routes that read a URL parameter their own router never supplied. A price editor whose change handler was empty. A reporting warehouse that had already been decommissioned server-side. The three-month estimate implicitly included rewriting all of that. The weekend didn&rsquo;t.</p>
+<h2>Honest footnotes</h2>
+<p>A few peripheral areas are still queued — label printing, email campaign templates, CSV imports, POS returns — so the line-count comparison flatters the new portal a little; even porting all of it, we expect to land at well under a quarter of the legacy size. And a thorough end-to-end test pass against the live backend comes before the production cutover. Nobody should claim AI removes the need for verification; it removes the <em>typing</em>, the <em>searching</em>, and the <em>forgetting</em>. The judgment calls — what to port, what to kill, what the business actually uses — were human ones, made faster because the full picture was always on the table.</p>
+<h2>The takeaway</h2>
+<p>The three-month estimate wasn&rsquo;t wrong — it was right <em>for the old way of working</em>. Read a file, understand it, rewrite it, test it, repeat several hundred times. What changed is that the read-understand-rewrite loop now runs at a different clock speed, while the architecture, the priorities, and the taste stay human.</p>
+<p>If you&rsquo;re staring down your own &ldquo;untouchable&rdquo; legacy system — the one quoted in quarters, not weeks — the math has changed. We&rsquo;d be glad to show you ours.</p>
+<hr />
+<p><em>Rivendella Inc. builds and modernizes the software that runs businesses. The ProSale platform — estate-sale management from contract to close-out, including point of sale and online auctions — is our flagship.</em></p>
+<hr />
+<h3>The numbers, for the technically curious</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Legacy portal</th>
+<th>New portal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angular</td>
+<td>8.2 (2019)</td>
+<td>21 (current)</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td>3.5</td>
+<td>5.9</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>12</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>NgModules</td>
+<td>Standalone components</td>
+</tr>
+<tr>
+<td>Application code</td>
+<td>77,861 lines / 776 files</td>
+<td>15,037 lines / 156 files</td>
+</tr>
+<tr>
+<td>Components / services</td>
+<td>121 / 46</td>
+<td>50 / 19</td>
+</tr>
+<tr>
+<td>Runtime dependencies</td>
+<td>~80</td>
+<td>11</td>
+</tr>
+<tr>
+<td>UI libraries</td>
+<td>smart-table, archwizard, 15+ ngx-* packages</td>
+<td>Bootstrap 5 + ng-bootstrap</td>
+</tr>
+<tr>
+<td>Initial bundle (transfer)</td>
+<td>multi-MB</td>
+<td>~190 KB</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>abandoned OIDC wrapper</td>
+<td>angular-auth-oidc-client, PKCE + refresh tokens</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>Webpack, ~minutes</td>
+<td>Vite/esbuild, ~4 seconds</td>
+</tr>
+<tr>
+<td>Core migration effort</td>
+<td>estimated ~3 months</td>
+<td><strong>1 weekend, 18 commits</strong></td>
+</tr>
+</tbody>
+</table></div>
+  <hr class="rule"/>
+  <div class="post-cta">
+    <a class="btn btn-ghost" href="/blog/">← Back to the blog</a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+  </div>
+</div></article><footer><div class="wrap foot">
+  <div class="brand"><span class="mark">R</span> RivendellAI&nbsp;Inc</div>
+  <div>© <span id="yr">2026</span> RivendellAI Inc · <a href="/">rivendellainc.com</a></div>
+</div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body></html>

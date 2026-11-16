@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Inheriting Complexity: Rethinking the Architecture Behind Prosale — RivendellAI</title>
+<meta name="description" content="How RivendellAI is modernizing an estate sale platform weighed down by fragmented frontend code and tangled backend synchronization"/>
+<link rel="stylesheet" href="../blog.css"/>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="/"><span class="mark">R</span> RivendellAI</a>
+  <span class="spacer"></span>
+  <a class="link" href="/#services">What we do</a>
+  <a class="link" href="/#work">Our work</a>
+  <a class="link" href="/blog/">Blog</a>
+  <a class="btn btn-ghost" href="/#contact">Get in touch</a>
+</div></header>
+<article class="post"><div class="wrap post-wrap">
+  <a class="back" href="/blog/">← All posts</a>
+  <div class="post-meta"><time>July 28, 2025</time><span class="cat">Software development</span></div>
+  <h1>Inheriting Complexity: Rethinking the Architecture Behind Prosale</h1>
+  
+  <div class="prose"><h4>RivendellAI&rsquo;s journey maintaining and modernizing a legacy Angular and .NET estate management platform.</h4>
+<p>How RivendellAI is modernizing an estate sale platform weighed down by fragmented frontend code and tangled backend synchronization</p>
+<p>When we at RivendellAI took over the Prosale.com platform, we stepped into a system that&rsquo;s been serving real-world customers for years. It&rsquo;s an ambitious web-based estate sale management tool, written primarily in Angular and .NET, and it does a lot of things well—inventory tracking, barcoding, user management, pricing, sales, photo uploads, mobile workflows.</p>
+<p>But once we opened the hood, it became clear that the architecture had grown more accidental than intentional. Feature by feature, fix by fix, things got bolted on—until the system became difficult to evolve, debug, or even understand.</p>
+<p>This blog post digs into two of the biggest pain points we inherited: the overly fragmented Angular frontend, and a microservice backend split across 16 separate databases. Spoiler: we&rsquo;re actively fixing both.</p>
+<h3>Frontend: Death by a Thousand Components</h3>
+<p>We&rsquo;re not against Angular. Used correctly, it&rsquo;s a powerful tool. But the way the frontend was structured in Prosale borders on self-sabotage.</p>
+<p>Let&rsquo;s say we want to debug a single screen—a typical &ldquo;Edit Product&rdquo; page. Here&rsquo;s what that actually means in Angular world:</p>
+<ul>
+<li>
+<p>A parent component shell</p>
+</li>
+<li>
+<p>Child components for the form, the image gallery, the pricing logic, the availability toggle, etc.</p>
+</li>
+<li>
+<p>Each component has three files: .ts, .html, and .css</p>
+</li>
+<li>
+<p>Then there&rsquo;s the routing module that lives somewhere else entirely</p>
+</li>
+<li>
+<p>And service classes (sometimes reused, sometimes rewritten) that handle all API calls, often with state-dependent behavior buried in the component logic</p>
+</li>
+<li>
+<p>Throw in some observables, subscriptions, maybe a shared state service, and a bunch of @Input()/@Output() bindings</p>
+</li>
+<li>
+<p>Oh, and one wrong click might trigger a cascade of async calls buried across 5+ services</p>
+</li>
+</ul>
+<p>So now we&rsquo;re 30–50 files deep, trying to understand what is functionally one screen.</p>
+<p>Debugging that? It&rsquo;s like trying to trace a fuse box while blindfolded—except the wiring keeps moving.</p>
+<p>This isn&rsquo;t &ldquo;component reuse.&rdquo; It&rsquo;s accidental complexity. Abstraction for abstraction&rsquo;s sake. A UI shouldn&rsquo;t require a small novel&rsquo;s worth of code and config just to update a button.</p>
+<p>We&rsquo;re slowly consolidating this mess:</p>
+<ul>
+<li>
+<p>Reducing unnecessary nesting</p>
+</li>
+<li>
+<p>Moving toward standalone components (now possible in Angular 13+)</p>
+</li>
+<li>
+<p>Introducing feature modules with clearly scoped responsibilities</p>
+</li>
+<li>
+<p>Avoiding shared service bloat by defining tighter domain-specific interfaces</p>
+</li>
+</ul>
+<p>We&rsquo;re also open to going non-Angular for future frontends. Blazor, Qwik, Qute, Thymeleaf—all on the table.</p>
+<h3>Backend: Microservices Without a Map</h3>
+<p>On the backend, things start out promising. The .NET code is organized in a fairly standard microservice style—clean service layers, REST endpoints, some use of dependency injection.</p>
+<p>But here&rsquo;s the kicker: 16 separate databases, each tied to its own service or functional area. And they&rsquo;re not isolated—they depend on each other.</p>
+<p>To keep things synchronized, a message bus was introduced, mimicking a pub/sub architecture. In theory, this should provide a decoupled, scalable flow of events.</p>
+<p>In practice? It&rsquo;s a tangled mess of partial subscribers, unclear ownership of events, and no single source of truth. One service publishes a product update, five others listen and react—but often in subtly different ways. Debugging it takes days. You&rsquo;re not fixing code—you&rsquo;re tracing a ghost through multiple logs, waiting for a reproduction that may or may not happen.</p>
+<p>Some problems we&rsquo;ve faced:</p>
+<ul>
+<li>
+<p>Circular dependencies between events</p>
+</li>
+<li>
+<p>Multiple services racing to update the same entity in their own silo</p>
+</li>
+<li>
+<p>Data inconsistencies when one subscriber fails silently</p>
+</li>
+<li>
+<p>The need for eventual consistency in a system designed as if everything is real-time</p>
+</li>
+</ul>
+<p>The architecture is trying to scale before it stabilized.</p>
+<h3>Framework Fragility: The Hidden Cost of Dependencies</h3>
+<p>Another major blocker to progress? Third-party dependency lock-in.</p>
+<p>When we began upgrading Angular from version 8 toward current (v13+ and eventually v17), we ran into a wall—many of the third-party libraries that the UI depended on were either:</p>
+<ul>
+<li>
+<p>No longer maintained</p>
+</li>
+<li>
+<p>Incompatible with Ivy or standalone components</p>
+</li>
+<li>
+<p>Replaced with entirely different APIs</p>
+</li>
+<li>
+<p>Removed from NPM altogether</p>
+</li>
+</ul>
+<p>This means that seemingly simple upgrades require rewriting entire modules just to stay on a supported version of Angular. For example, UI libraries like ng2-smart-table, date pickers, file upload components, or barcode renderers may not have a drop-in replacement anymore.</p>
+<p>Worse, some of these libraries are deeply embedded—touching multiple components and service layers. You don&rsquo;t just swap it out. You rebuild and retest everything around it.</p>
+<p>This reliance on community packages that lack long-term support is a silent debt—and it accumulates interest fast.</p>
+<p>We&rsquo;re actively working to untangle this:</p>
+<ul>
+<li>
+<p>Removing fragile dependencies in favor of native Angular tools or internally maintained wrappers</p>
+</li>
+<li>
+<p>Choosing libraries with strong community backing and clear upgrade paths</p>
+</li>
+<li>
+<p>For core UI elements, building lightweight, reusable components ourselves</p>
+</li>
+<li>
+<p>Embracing the new Angular standalone APIs to cut down boilerplate and simplify integration</p>
+</li>
+</ul>
+<p>The long-term goal? A UI stack we own, not one we constantly chase.</p>
+<h3>Our Approach Moving Forward</h3>
+<p>We&rsquo;re not going scorched-earth on this system. It works, customers rely on it, and there&rsquo;s real domain knowledge baked in. But we are bringing clarity and intentionality to the table:</p>
+<ul>
+<li>
+<p>We&rsquo;re moving to domain-aligned service boundaries, not arbitrary ones</p>
+</li>
+<li>
+<p>Consolidating databases where justified (not every service needs its own schema)</p>
+</li>
+<li>
+<p>Simplifying the message bus model—fewer publishers, more clearly defined contracts</p>
+</li>
+<li>
+<p>Adding observability: tracing, correlation IDs, meaningful logs</p>
+</li>
+<li>
+<p>Replacing tightly-coupled shared services with domain gateways</p>
+</li>
+</ul>
+<p>And critically, we&rsquo;re designing new subsystems—like Consignment—in Quarkus, our preferred stack for lightweight, fast, modern APIs. These services are purpose-built, easier to deploy, and don&rsquo;t rely on massive shared state.</p>
+<h3>Why This Matters</h3>
+<p>We&rsquo;re not just cleaning house for fun. A better architecture enables:</p>
+<ul>
+<li>
+<p>Faster feature development</p>
+</li>
+<li>
+<p>Shorter onboarding time for new engineers</p>
+</li>
+<li>
+<p>Reduced support incidents</p>
+</li>
+<li>
+<p>Cleaner testing strategies</p>
+</li>
+<li>
+<p>A more stable, scalable foundation for mobile and multi-tenant evolution</p>
+</li>
+</ul>
+<p>Prosale can&rsquo;t be stuck in a 2015 web monolith world. It&rsquo;s time to evolve—from legacy platform to modern estate sale management SaaS.</p>
+<h3>Closing Thoughts</h3>
+<p>Maintaining legacy systems means balancing respect for what works with courage to challenge what doesn&rsquo;t. At RivendellAI, we believe architecture should serve the team, the users, and the future—not just the past.</p>
+<p>This is just the start of the journey. In the next post, we&rsquo;ll share how we built the new Consignment subsystem in Quarkus—and why we think it&rsquo;s a template for everything that comes next.</p></div>
+  <hr class="rule"/>
+  <div class="post-cta">
+    <a class="btn btn-ghost" href="/blog/">← Back to the blog</a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+  </div>
+</div></article><footer><div class="wrap foot">
+  <div class="brand"><span class="mark">R</span> RivendellAI&nbsp;Inc</div>
+  <div>© <span id="yr">2026</span> RivendellAI Inc · <a href="/">rivendellainc.com</a></div>
+</div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body></html>

@@ -1,0 +1,3 @@
+# build scratch — raw imported post data, not part of the published site
+_import/
+*.tmp

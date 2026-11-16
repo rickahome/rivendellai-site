@@ -311,6 +311,60 @@
     </div>
   </section>
 
+  <!-- FROM THE BLOG -->
+  <style>
+    .blog-card{padding:0; overflow:hidden; color:var(--text); display:flex; flex-direction:column}
+    .blog-card:hover{text-decoration:none}
+    .blog-card .thumb{height:150px; background-size:cover; background-position:center; background-color:#0e1630}
+    .blog-card .thumb.noimg{background:linear-gradient(135deg,var(--panel2),var(--bg2))}
+    .blog-card .bc-body{padding:22px; display:flex; flex-direction:column; gap:8px; flex:1}
+    .blog-card .date{color:var(--muted); font-size:.8rem; letter-spacing:.02em}
+    .blog-card h3{margin:0; font-size:1.1rem}
+    .blog-card p{color:var(--muted); font-size:.92rem; margin:0; flex:1}
+    .blog-card .read{color:var(--accent); font-weight:600; font-size:.9rem}
+    .blog-more{margin-top:28px}
+  </style>
+  <section id="blog">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>From the blog</h2>
+        <p>Field notes on modernizing software, building platforms — and the engineering life that came before it.</p>
+      </div>
+      <div class="grid grid-3">
+        <a class="card blog-card" href="/blog/introducing-prosale-v2-built-for-modern-estate-sales.html">
+          <div class="thumb" style="background-image:url('/blog/images/1366202964.jpg')"></div>
+          <div class="bc-body">
+            <span class="date">July 13, 2026</span>
+            <h3>Introducing ProSale v2: Built for Modern Estate Sales</h3>
+            <p>A new era for estate-sale management — rebuilt from the ground up to kill double-entry, manual reconciliation, and disconnected workflows.</p>
+            <span class="read">Read the post →</span>
+          </div>
+        </a>
+        <a class="card blog-card" href="/blog/modernize-an-angular-8-app.html">
+          <div class="thumb" style="background-image:url('/blog/images/Screenshot-2026-06-07-144949.jpg')"></div>
+          <div class="bc-body">
+            <span class="date">June 7, 2026</span>
+            <h3>We Shipped the Core in a Weekend</h3>
+            <p>Quoted three months to modernize a legacy Angular 8 app. We shipped the core in a weekend — and cut roughly 80% of the code.</p>
+            <span class="read">Read the post →</span>
+          </div>
+        </a>
+        <a class="card blog-card" href="/blog/sierra-cosworth.html">
+          <div class="thumb" style="background-image:url('/blog/images/1987-ford-sierra-cosworth-rs500-main.jpg')"></div>
+          <div class="bc-body">
+            <span class="date">June 24, 2025</span>
+            <h3>Before the Code: The Factory Behind the Sierra Cosworth</h3>
+            <p>The untold story of building the factory and the systems behind a legendary engine — and the path from aluminium to software.</p>
+            <span class="read">Read the post →</span>
+          </div>
+        </a>
+      </div>
+      <div class="blog-more">
+        <a class="btn btn-ghost" href="/blog/">View all posts →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="wrap">
